@@ -1,0 +1,19 @@
+-- Sample exams and questions. Edit freely. Re-running is safe (upserts by code).
+insert into public.exams (code, title, program, level, pass_mark, duration_min, description) values ($c$IT-101$c$, $c$Information Technology Fundamentals$c$, $c$Information Technology$c$, $c$Foundation$c$, 60, 20, $c$Core ideas in networks, data and cloud.$c$)
+  on conflict (code) do update set title=excluded.title, program=excluded.program, pass_mark=excluded.pass_mark, duration_min=excluded.duration_min, description=excluded.description;
+delete from public.questions where exam_id = (select id from public.exams where code = 'IT-101');
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 1, $c$Which protocol is used to browse websites securely?$c$, '["HTTP", "HTTPS", "FTP", "Telnet"]'::jsonb, 1 from public.exams where code = 'IT-101';
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 2, $c$What does SQL stand for?$c$, '["Structured Query Language", "Simple Query Logic", "Sequential Question Language", "Standard Quantity List"]'::jsonb, 0 from public.exams where code = 'IT-101';
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 3, $c$Which data structure works first in, first out?$c$, '["Stack", "Queue", "Tree", "Hash table"]'::jsonb, 1 from public.exams where code = 'IT-101';
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 4, $c$What does an IP address identify?$c$, '["A user password", "A device on a network", "A website colour scheme", "A file size"]'::jsonb, 1 from public.exams where code = 'IT-101';
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 5, $c$Which cloud model gives you virtual machines that you configure yourself?$c$, '["SaaS", "PaaS", "IaaS", "DaaS"]'::jsonb, 2 from public.exams where code = 'IT-101';
+
+insert into public.exams (code, title, program, level, pass_mark, duration_min, description) values ($c$AI-101$c$, $c$Foundations of Artificial Intelligence$c$, $c$Artificial Intelligence$c$, $c$Foundation$c$, 60, 20, $c$Core ideas in machine learning.$c$)
+  on conflict (code) do update set title=excluded.title, program=excluded.program, pass_mark=excluded.pass_mark, duration_min=excluded.duration_min, description=excluded.description;
+delete from public.questions where exam_id = (select id from public.exams where code = 'AI-101');
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 1, $c$Which type of learning uses labelled examples?$c$, '["Supervised", "Unsupervised", "Reinforcement", "Evolutionary"]'::jsonb, 0 from public.exams where code = 'AI-101';
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 2, $c$What is overfitting?$c$, '["A model that fits training data too closely and generalises poorly", "A model that trains too fast", "A model with too few parameters", "A model that ignores data"]'::jsonb, 0 from public.exams where code = 'AI-101';
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 3, $c$Which function is commonly used to output probabilities for multi-class classification?$c$, '["ReLU", "Softmax", "Sigmoid derivative", "Tanh"]'::jsonb, 1 from public.exams where code = 'AI-101';
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 4, $c$What does a loss function measure?$c$, '["How wrong the predictions are", "Training speed", "Memory use", "Dataset size"]'::jsonb, 0 from public.exams where code = 'AI-101';
+insert into public.questions (exam_id, position, prompt, options, correct) select id, 5, $c$Which technique helps test whether a model generalises?$c$, '["A train, validation and test split", "Data duplication", "Label shuffling only", "Feature deletion"]'::jsonb, 0 from public.exams where code = 'AI-101';
+
